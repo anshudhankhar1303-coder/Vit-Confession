@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIT Confessions – Anonymous Confession Wall for VIT Students</title>
+<meta name="description" content="VIT Confessions: share your confessions, crushes and rants anonymously. No registration, no login. A free anonymous wall for VIT Vellore students.">
+<meta name="keywords" content="VIT confessions, VIT Vellore confessions, anonymous confession VIT, VIT crush, VIT students">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="VIT Confessions – Say it anonymously">
+<meta property="og:description" content="No sign-up, no name. Share your confession with VIT students.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#7c4dff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🤫%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f4f1fb;--card:#ffffff;--text:#1b1830;--muted:#6f6a86;--accent:#7c4dff;--accent2:#ff4d8d;--line:#e6e1f4;--chip:#efeaff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f0d1a;--card:#1a1730;--text:#f3f0ff;--muted:#a29dc0;--accent:#9a7bff;--accent2:#ff6ba3;--line:#2b2750;--chip:#26224a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f0d1a;--card:#1a1730;--text:#f3f0ff;--muted:#a29dc0;--accent:#9a7bff;--accent2:#ff6ba3;--line:#2b2750;--chip:#26224a;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55}
+.hero{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:34px 18px 70px;text-align:center}
+.hero .logo{font-size:2.6rem}
+.hero h1{margin:6px 0 6px;font-size:2rem;letter-spacing:-.5px}
+.hero p{margin:0 auto;max-width:430px;opacity:.95}
+.badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.badge{background:rgba(255,255,255,.2);border-radius:99px;padding:5px 12px;font-size:.8rem}
+.wrap{max-width:640px;margin:-50px auto 0;padding:0 16px 56px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 10px 30px rgba(60,30,140,.15)}
+.box h2{margin:0 0 10px;font-size:1.05rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--text);border-radius:99px;padding:6px 13px;font:inherit;font-size:.88rem;cursor:pointer;transition:.15s}
+.chip.on{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff}
+textarea,input{width:100%;background:transparent;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;margin-top:12px}
+textarea{min-height:130px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:0}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px}
+.count{color:var(--muted);font-size:.82rem}
+.post{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:0;border-radius:12px;padding:11px 22px;font:inherit;font-weight:700;cursor:pointer}
+.post:disabled{opacity:.45;cursor:not-allowed}
+.note{color:var(--muted);font-size:.8rem;margin:12px 4px 0}
+.bar{display:flex;justify-content:space-between;align-items:center;margin:28px 0 12px;gap:10px;flex-wrap:wrap}
+.bar h2{margin:0;font-size:1.2rem}
+.total{color:var(--muted);font-size:.85rem}
+.item{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c,var(--accent));border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;background:var(--chip)}
+.who{font-weight:600;font-size:.92rem}
+.when{color:var(--muted);font-size:.78rem}
+.tag{margin-left:auto;font-size:.75rem;font-weight:700;color:var(--c,var(--accent));background:var(--chip);border-radius:99px;padding:3px 10px}
+.to{color:var(--muted);font-size:.88rem;margin-bottom:4px}
+.txt{white-space:pre-wrap;word-break:break-word}
+.reacts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.r{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:99px;padding:4px 11px;font:inherit;font-size:.85rem;cursor:pointer}
+.r.done{background:var(--chip);border-color:var(--accent)}
+.empty{color:var(--muted);text-align:center;padding:36px 10px;background:var(--card);border:1px dashed var(--line);border-radius:16px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(30px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:.88rem;opacity:0;transition:.25s;pointer-events:none;z-index:5}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="logo">🤫</div>
+  <h1>VIT Confessions</h1>
+  <p>Say what you can’t say out loud. No sign-up, no name, no judgement.</p>
+  <div class="badges"><span class="badge">🔒 100% anonymous</span><span class="badge">⚡ No registration</span><span class="badge">🎓 For VITians</span></div>
+</div>
+
+<div class="wrap">
+  <div class="box">
+    <h2>Share something</h2>
+    <div class="chips" id="chips"></div>
+    <textarea id="msg" maxlength="600" placeholder="Write your confession here. Nobody will know it’s you..."></textarea>
+    <input id="to" maxlength="40" placeholder="To whom? (optional, e.g. “my roommate”)">
+    <div class="row"><span class="count" id="count">0 / 600</span><button class="post" id="send" disabled>Post anonymously</button></div>
+  </div>
+  <p class="note">We don’t save your name, registration number or any personal detail. Please don’t post hate, abuse, or anyone’s private information (phone numbers, full names).</p>
+  <p class="note" id="mode"></p>
+
+  <div class="bar"><h2>Latest confessions</h2><span class="total" id="total"></span></div>
+  <div class="chips" id="filters" style="margin-bottom:14px"></div>
+  <div id="feed"><div class="empty">Loading confessions...</div></div>
+  <footer>Made by a VITian, for VITians 💜</footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+// STEP 1: paste your Firebase web app config here (see setup guide)
+var FIREBASE_CONFIG={
+  apiKey:"PASTE_API_KEY",
+  authDomain:"PASTE_PROJECT.firebaseapp.com",
+  projectId:"PASTE_PROJECT_ID",
+  appId:"PASTE_APP_ID"
+};
+(function(){
+  var CATS=[["Confession","#7c4dff"],["Crush","#ff4d8d"],["Rant","#ff8a3d"],["Thank you","#18b57a"],["Other","#3aa0ff"]];
+  var RX=[["like","❤️"],["sad","😭"],["fire","🔥"],["laugh","😂"]];
+  var AV=["🦊","🐼","🐯","🦉","🐸","🐙","🦄","🐧","🐨","🦁","🐰","🦋"];
+  var cat="Confession", filter="All", db=null, all=[], last=0, reacted={};
+  var $=function(i){return document.getElementById(i)};
+  var color=function(c){for(var i=0;i<CATS.length;i++)if(CATS[i][0]===c)return CATS[i][1];return "#7c4dff"};
+  function toast(t){var e=$("toast");e.textContent=t;e.classList.add("show");setTimeout(function(){e.classList.remove("show")},2200)}
+  try{reacted=JSON.parse(localStorage.getItem("vitr")||"{}")}catch(e){}
+
+  function mkChips(el,list,cur,cb){
+    el.textContent="";
+    list.forEach(function(c){
+      var b=document.createElement("button");b.className="chip"+(c===cur?" on":"");b.textContent=c;
+      b.onclick=function(){cb(c);[].forEach.call(el.children,function(x){x.classList.toggle("on",x===b)})};
+      el.appendChild(b);
+    });
+  }
+  mkChips($("chips"),CATS.map(function(c){return c[0]}),cat,function(c){cat=c});
+  mkChips($("filters"),["All"].concat(CATS.map(function(c){return c[0]})),filter,function(c){filter=c;render()});
+
+  $("msg").addEventListener("input",function(){
+    $("count").textContent=$("msg").value.length+" / 600";
+    $("send").disabled=$("msg").value.trim().length<3;
+  });
+
+  function ago(t){
+    var s=Math.floor((Date.now()-t)/1000);
+    if(s<60)return "just now";
+    if(s<3600)return Math.floor(s/60)+" min ago";
+    if(s<86400)return Math.floor(s/3600)+" hr ago";
+    return Math.floor(s/86400)+" days ago";
+  }
+
+  function render(){
+    var feed=$("feed");feed.textContent="";
+    var list=all.filter(function(p){return filter==="All"||p.cat===filter});
+    $("total").textContent=all.length+(all.length===1?" confession":" confessions");
+    if(!list.length){var e=document.createElement("div");e.className="empty";e.textContent=all.length?"Nothing in this category yet.":"No confessions yet. Be the first to share something!";feed.appendChild(e);return}
+    list.forEach(function(p){
+      var d=document.createElement("div");d.className="item";d.style.setProperty("--c",color(p.cat));
+      var top=document.createElement("div");top.className="top";
+      var av=document.createElement("div");av.className="av";av.textContent=AV[(p.t||0)%AV.length];
+      var w=document.createElement("div");
+      var n=document.createElement("div");n.className="who";n.textContent="Anonymous VITian";
+      var a=document.createElement("div");a.className="when";a.textContent=ago(p.t||Date.now());
+      w.appendChild(n);w.appendChild(a);
+      var tg=document.createElement("span");tg.className="tag";tg.textContent=p.cat||"Confession";
+      top.appendChild(av);top.appendChild(w);top.appendChild(tg);d.appendChild(top);
+      if(p.to){var o=document.createElement("div");o.className="to";o.textContent="To: "+p.to;d.appendChild(o)}
+      var x=document.createElement("div");x.className="txt";x.textContent=p.text||"";d.appendChild(x);
+      var rs=document.createElement("div");rs.className="reacts";
+      RX.forEach(function(r){
+        var b=document.createElement("button");
+        var done=reacted[p.id+r[0]];
+        b.className="r"+(done?" done":"");
+        b.textContent=r[1]+" "+(p["r_"+r[0]]||0);
+        b.onclick=function(){react(p,r[0])};
+        rs.appendChild(b);
+      });
+      d.appendChild(rs);feed.appendChild(d);
+    });
+  }
+
+  async function react(p,k){
+    var key=p.id+k;
+    if(reacted[key]){toast("You already reacted");return}
+    reacted[key]=1;
+    try{localStorage.setItem("vitr",JSON.stringify(reacted))}catch(e){}
+    var f="r_"+k;
+    p[f]=(p[f]||0)+1;
+    try{
+      if(db){var u={};u[f]=p[f];await db.doc("confessions/"+p.id).update(u)}
+      else{saveLocal()}
+    }catch(e){toast("Couldn’t save your reaction")}
+    render();
+  }
+
+  function saveLocal(){try{localStorage.setItem("vitc",JSON.stringify(all.slice(0,100)))}catch(e){}}
+
+  $("send").onclick=async function(){
+    var text=$("msg").value.trim();
+    if(text.length<3)return;
+    if(Date.now()-last<15000){toast("Please wait a few seconds before posting again");return}
+    var post={text:text,to:$("to").value.trim(),cat:cat,t:Date.now()};
+    $("send").disabled=true;
+    try{
+      if(db){await db.collection("confessions").add(post)}
+      else{post.id="l"+post.t;all.unshift(post);saveLocal();render()}
+      last=Date.now();$("msg").value="";$("to").value="";$("count").textContent="0 / 600";
+      toast("Posted anonymously ✓");
+    }catch(e){toast("Couldn’t post. Please try again.");$("send").disabled=false}
+  };
+
+  try{all=JSON.parse(localStorage.getItem("vitc")||"[]")}catch(e){all=[]}
+  render();
+  if(FIREBASE_CONFIG.apiKey.indexOf("PASTE")===0){
+    $("mode").textContent="Demo mode: add your Firebase keys so everyone can see the posts.";
+  }else{
+    try{
+      firebase.initializeApp(FIREBASE_CONFIG);
+      db=firebase.firestore();all=[];
+      db.collection("confessions").orderBy("t","desc").limit(100).onSnapshot(function(s){
+        all=s.docs.map(function(x){var o=Object.assign({},x.data());o.id=x.id;return o});render();
+      },function(){$("mode").textContent="Couldn’t load the feed."});
+    }catch(e){$("mode").textContent="Couldn’t connect to the database."}
+  }
+})();
+</script>
+</body>
+</html>
