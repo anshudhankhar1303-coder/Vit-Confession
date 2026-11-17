@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /confessions/{id} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasOnly(['text','to','cat','t'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() >= 3 && request.resource.data.text.size() <= 600
+        && request.resource.data.to is string && request.resource.data.to.size() <= 40
+        && request.resource.data.cat in ['Confession','Crush','Rant','Thank you','Other']
+        && request.resource.data.t is number;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(['r_like','r_sad','r_fire','r_laugh']);
+      allow delete: if false;
+    }
+  }
+}
